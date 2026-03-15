@@ -16480,7 +16480,7 @@ textarea.form-control-lg {
 }
 
 .banner-inner-section {
-  min-height: 650px;
+  min-height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
