@@ -1,10 +1,10 @@
-# Reactive Black Dyes
+# Reactive Blacks
 
-## High Performance Reactive Black Dyes for Textile Applications
+## High Performance Reactive Blacks for Textile Applications
 
-Reactive Black dyes are widely used in the textile industry for dyeing **cotton, viscose, linen, and other cellulosic fibers**. These dyes form a strong covalent bond with the fiber, resulting in **excellent wash fastness, deep shades, and superior color stability**.
+Reactive Blacks are widely used in the textile industry for dyeing **cotton, viscose, linen, and other cellulosic fibers**. These dyes form a strong covalent bond with the fiber, resulting in **excellent wash fastness, deep shades, and superior color stability**.
 
-Our Reactive Black dyes are manufactured with strict quality control to ensure:
+Our Reactive Blacks are manufactured with strict quality control to ensure:
 
 - High color strength
 - Excellent solubility
@@ -18,7 +18,7 @@ These dyes are suitable for **exhaust dyeing, continuous dyeing, cold pad batch 
 
 # Customer Benefits
 
-Our Reactive Black dyes provide several advantages for textile manufacturers:
+Our Reactive Blacks provide several advantages for textile manufacturers:
 
 - **Deep Black Shades**  
   Produces strong, rich black tones with excellent depth.
@@ -42,7 +42,7 @@ Our Reactive Black dyes provide several advantages for textile manufacturers:
 
 # Applications
 
-Reactive Black dyes are widely used in:
+Reactive Blacks are widely used in:
 
 - Cotton dyeing
 - Viscose and rayon fabrics
@@ -63,7 +63,7 @@ Industries using these dyes include:
 
 # Product Range
 
-Our Reactive Black dyes are available in multiple shades suitable for various dyeing and printing processes.
+Our Reactive Blacks are available in multiple shades suitable for various dyeing and printing processes.
 
 | Product Name | Color Index | Color |
 |---------------|-------------|-------|
@@ -77,7 +77,7 @@ Our Reactive Black dyes are available in multiple shades suitable for various dy
 
 # Application Methods
 
-Reactive Black dyes can be applied using several textile dyeing techniques.
+Reactive Blacks can be applied using several textile dyeing techniques.
 
 ## Exhaust Dyeing
 Used for dyeing fabrics in dyeing machines where the dye solution gradually exhausts onto the fiber.

@@ -1,10 +1,10 @@
-# Reactive Blue Dyes
+# Reactive Blues
 
-## High Performance Reactive Blue Dyes for Textile Applications
+## High Performance Reactive Blues for Textile Applications
 
-Reactive Blue dyes are high-quality dyes designed primarily for dyeing **cotton, viscose, linen, and other cellulosic fibers**. These dyes form a **strong covalent bond with the fiber**, ensuring excellent wash fastness, high fixation, and superior color strength.
+Reactive Blues are high-quality dyes designed primarily for dyeing **cotton, viscose, linen, and other cellulosic fibers**. These dyes form a **strong covalent bond with the fiber**, ensuring excellent wash fastness, high fixation, and superior color strength.
 
-Our Reactive Blue dyes are developed using advanced manufacturing processes that ensure:
+Our Reactive Blues are developed using advanced manufacturing processes that ensure:
 
 - Excellent color yield
 - Uniform shade reproduction
@@ -18,7 +18,7 @@ They are suitable for **exhaust dyeing, continuous dyeing, cold pad batch dyeing
 
 # Customer Benefits
 
-Our Reactive Blue dyes offer multiple advantages to textile manufacturers:
+Our Reactive Blues offer multiple advantages to textile manufacturers:
 
 - **High Color Yield**  
   Provides deep, vibrant shades with excellent tinting strength.
@@ -45,7 +45,7 @@ Our Reactive Blue dyes offer multiple advantages to textile manufacturers:
 
 # Application Methods
 
-Reactive Blue dyes can be applied using various textile dyeing techniques depending on production requirements.
+Reactive Blues can be applied using various textile dyeing techniques depending on production requirements.
 
 ## Exhaust Dyeing
 
@@ -103,7 +103,7 @@ Printing advantages:
 
 # Applications
 
-Reactive Blue dyes are widely used in the textile industry for dyeing and printing:
+Reactive Blues are widely used in the textile industry for dyeing and printing:
 
 - Cotton fabrics
 - Viscose and rayon fabrics
@@ -124,7 +124,7 @@ Industries using these dyes include:
 
 # Product Range
 
-Our Reactive Blue dyes are available in multiple dye series designed for different dyeing and printing processes.
+Our Reactive Blues are available in multiple dye series designed for different dyeing and printing processes.
 
 ---
 
@@ -245,7 +245,7 @@ Our Reactive Blue dyes are available in multiple dye series designed for differe
 
 # Packaging
 
-Reactive Blue dyes are supplied in secure industrial packaging options:
+Reactive Blues are supplied in secure industrial packaging options:
 
 - HDPE Bags
 - Paper Bags

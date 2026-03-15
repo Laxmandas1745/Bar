@@ -192,6 +192,14 @@
   }
 }
 
+#alumina,
+#benzene,
+#carbons,
+#pigments-reactives,
+#inorganic-solutions {
+  scroll-margin-top: 120px;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -16487,7 +16495,7 @@ textarea.form-control-lg {
 }
 @media (max-width: 991.98px) {
   .banner-inner-section {
-    min-height: 550px;
+    min-height: 620px;
   }
 }
 
@@ -16815,4 +16823,61 @@ ul {
 .btn-dark:hover {
   color: var(--bs-dark);
   background-color: var(--bs-white);
+}
+
+/* Category card hover */
+.project .bg-white.rounded-4 {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: default;
+}
+.project .bg-white.rounded-4:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.10);
+  border-color: var(--bs-primary) !important;
+}
+
+/* Half-section hover: highlight all links when hovering anywhere on the half */
+.project .col-lg-6:hover a {
+  color: #F97C37 !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.project .no-col-hover .col-lg-6:hover a {
+  color: inherit !important;
+}
+.project .col-lg-6 a {
+  transition: color 0.2s ease;
+}
+
+/* Pigments & Reactives: only highlight the hovered li link */
+.project .no-col-hover li:hover a {
+  color: #F97C37 !important;
+  transition: color 0.2s ease;
+}
+.project .no-col-hover .col-lg-6:hover li:hover a,
+.project .no-col-hover .col-lg-6:hover li a:hover,
+.project .no-col-hover .col-lg-6:hover li a:focus-visible {
+  color: #F97C37 !important;
+}
+.project .no-col-hover li a {
+  transition: color 0.2s ease;
+}
+
+/* Single-card hover: highlight link when hovering anywhere on the card */
+.project .cat-single:hover a {
+  color: #F97C37 !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.project .bg-white.rounded-4.cat-single:hover a.text-dark,
+.project .bg-white.rounded-4.cat-single:hover h2 a,
+.project .bg-white.rounded-4.cat-single:hover h4 a {
+  color: #F97C37 !important;
+}
+.project .cat-single:hover h2 a,
+.project .cat-single:hover h4 a {
+  color: #F97C37 !important;
+}
+.project .cat-single a {
+  transition: color 0.2s ease;
 }/*# sourceMappingURL=styles.css.map */
