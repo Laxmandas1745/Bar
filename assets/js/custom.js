@@ -15,7 +15,11 @@ $(function () {
         center: true,
         loop: true,
         margin: 30,
-        nav: false,
+        nav: true,
+        navText: [
+            '<span class="featured-nav-btn" aria-label="Previous slide"><iconify-icon icon="lucide:arrow-left" class="featured-nav-icon"></iconify-icon></span>',
+            '<span class="featured-nav-btn" aria-label="Next slide"><iconify-icon icon="lucide:arrow-right" class="featured-nav-icon"></iconify-icon></span>'
+        ],
         dots: false,
         autoplay: true,
         autoplayTimeout: 5000,

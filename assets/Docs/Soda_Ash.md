@@ -1,12 +1,12 @@
-# Soda Ash (Sodium Carbonate – Na₂CO₃)
+# Di Sodium Carbonate (Sodium Carbonate – Na₂CO₃)
 
 ## Product Overview
 
-Soda Ash is the common name for **sodium carbonate (Na₂CO₃)**, a white, odourless and stable inorganic compound widely used as a fundamental industrial chemical.
+Di Sodium Carbonate is the common name for **sodium carbonate (Na₂CO₃)**, a white, odourless and stable inorganic compound widely used as a fundamental industrial chemical.
 
 It dissolves readily in water to form a slightly alkaline solution and is valued for its **high purity, consistent quality, and excellent pH regulation properties**.
 
-Due to its versatility, Soda Ash serves as a key raw material across several industries including **glass manufacturing, detergents, chemicals, textiles, water treatment, and metallurgy**.
+Due to its versatility, Di Sodium Carbonate serves as a key raw material across several industries including **glass manufacturing, detergents, chemicals, textiles, water treatment, and metallurgy**.
 
 Its ability to regulate alkalinity, reduce melting temperatures in glass production, and facilitate chemical reactions makes it one of the most widely used industrial chemicals worldwide.
 
@@ -30,17 +30,17 @@ Its ability to regulate alkalinity, reduce melting temperatures in glass product
 | Chemical Formula | Na₂CO₃ |
 | Molecular Weight | 105.99 g/mol |
 | CAS Number | 497-19-8 |
-| Common Names | Soda Ash, Washing Soda, Calcined Soda |
+| Common Names | Di Sodium Carbonate, Washing Soda, Calcined Soda |
 | Appearance | White granular solid |
 | Odor | Odorless |
 
-(Source: Soda Ash SDS) :contentReference[oaicite:3]{index=3}
+(Source: Di Sodium Carbonate SDS) :contentReference[oaicite:3]{index=3}
 
 ---
 
 # Applications
 
-Soda Ash is a versatile industrial chemical used across numerous industries.
+Di Sodium Carbonate is a versatile industrial chemical used across numerous industries.
 
 ### Chemical Production
 Used as a raw material for manufacturing sodium-based chemicals including sodium silicates, phosphates, and percarbonates.
@@ -89,18 +89,18 @@ Provides alkalinity for detergents and cleaning compounds.
 
 ---
 
-# Types of Soda Ash
+# Types of Di Sodium Carbonate
 
-We supply Soda Ash in two major forms:
+We supply Di Sodium Carbonate in two major forms:
 
-- **Dense Soda Ash**
-- **Light Soda Ash**
+- **Dense Di Sodium Carbonate**
+- **Light Di Sodium Carbonate**
 
 ---
 
-# Dense Soda Ash
+# Dense Di Sodium Carbonate
 
-Dense Soda Ash is a high-density form of sodium carbonate widely used in **glass production and heavy industrial applications**.
+Dense Di Sodium Carbonate is a high-density form of sodium carbonate widely used in **glass production and heavy industrial applications**.
 
 Its higher bulk density makes it ideal for industries requiring **uniform particle size, higher packing density, and efficient furnace feeding**.
 
@@ -129,13 +129,13 @@ Its higher bulk density makes it ideal for industries requiring **uniform partic
 | Iron (Fe₂O₃) | % | ≤ 0.0029 |
 | Matter Insoluble in Water | % | ≤ 0.03 |
 
-(Source: Dense Soda Ash TDS) :contentReference[oaicite:4]{index=4}
+(Source: Dense Di Sodium Carbonate TDS) :contentReference[oaicite:4]{index=4}
 
 ---
 
-# Light Soda Ash
+# Light Di Sodium Carbonate
 
-Light Soda Ash is a lower density form of sodium carbonate that is widely used in **detergents, textiles, water treatment and chemical manufacturing**.
+Light Di Sodium Carbonate is a lower density form of sodium carbonate that is widely used in **detergents, textiles, water treatment and chemical manufacturing**.
 
 Its lighter density improves **solubility and dispersion in aqueous processes**.
 
@@ -161,13 +161,13 @@ Its lighter density improves **solubility and dispersion in aqueous processes**.
 | Iron (Fe₂O₃) | % | ≤ 0.0029 |
 | Matter Insoluble in Water | % | ≤ 0.03 |
 
-(Source: Light Soda Ash TDS) :contentReference[oaicite:5]{index=5}
+(Source: Light Di Sodium Carbonate TDS) :contentReference[oaicite:5]{index=5}
 
 ---
 
 # Safety Information
 
-Soda Ash is generally considered safe when handled properly but may cause irritation under certain conditions.
+Di Sodium Carbonate is generally considered safe when handled properly but may cause irritation under certain conditions.
 
 ### Potential Hazards
 
@@ -175,7 +175,7 @@ Soda Ash is generally considered safe when handled properly but may cause irrita
 - Respiratory irritation from dust
 - Skin irritation after prolonged exposure
 
-(Source: Soda Ash SDS) :contentReference[oaicite:6]{index=6}
+(Source: Di Sodium Carbonate SDS) :contentReference[oaicite:6]{index=6}
 
 ---
 
@@ -190,20 +190,20 @@ Soda Ash is generally considered safe when handled properly but may cause irrita
 
 # Personal Protective Equipment (PPE)
 
-Recommended protective equipment when handling Soda Ash:
+Recommended protective equipment when handling Di Sodium Carbonate:
 
 - Safety goggles
 - Dust mask or respirator
 - Protective gloves
 - Protective clothing
 
-(Source: Soda Ash SDS) :contentReference[oaicite:7]{index=7}
+(Source: Di Sodium Carbonate SDS) :contentReference[oaicite:7]{index=7}
 
 ---
 
 # Packaging
 
-Soda Ash is typically supplied in:
+Di Sodium Carbonate is typically supplied in:
 
 - 50 kg HDPE / PP bags
 - 750 kg jumbo bags

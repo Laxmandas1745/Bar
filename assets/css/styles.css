@@ -16585,6 +16585,33 @@ textarea.form-control-lg {
   animation-play-state: paused;
 }
 
+.about-products-marquee {
+  background-color: var(--bs-white);
+}
+
+.about-products-marquee .marquee-content {
+  gap: 1.25rem;
+  animation-duration: 36s;
+}
+
+.about-products-marquee-link {
+  color: var(--bs-dark);
+  font-size: 1.5rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.about-products-marquee-link:hover {
+  color: var(--bs-primary);
+}
+
+.about-products-marquee-separator {
+  color: var(--bs-dark);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
 .marquee-tag {
   width: 200px;
   transition: all 0.2s ease;
@@ -16674,6 +16701,141 @@ textarea.form-control-lg {
   color: var(--bs-primary);
 }
 
+.featured-projects-slider .owl-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.featured-projects-slider .owl-nav button {
+  margin: 0 !important;
+}
+
+.featured-projects-slider .owl-nav button:hover {
+  background: transparent !important;
+}
+
+.featured-projects-slider .featured-nav-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--bs-primary-rgb), 0.35);
+  background: var(--bs-white);
+  color: var(--bs-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(31, 42, 46, 0.08);
+  transition: all 0.25s ease;
+}
+
+.featured-projects-slider .featured-nav-btn:hover {
+  background: var(--bs-primary);
+  color: var(--bs-white);
+  border-color: var(--bs-primary);
+  transform: translateY(-2px);
+}
+
+.featured-projects-slider .featured-nav-icon {
+  font-size: 1.25rem;
+}
+
+/* Product Tab Buttons */
+.product-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--bs-dark) !important;
+  background-color: var(--bs-white);
+  border: 1.5px solid var(--bs-light-gray, #E4E8EC);
+  border-radius: 2rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+.product-tab-btn:hover,
+.product-tab-btn:focus {
+  background-color: var(--bs-primary) !important;
+  color: var(--bs-white) !important;
+  border-color: var(--bs-primary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(249, 124, 55, 0.2);
+  text-decoration: none !important;
+}
+
+.product-tab-btn:hover *,
+.product-tab-btn:focus * {
+  color: var(--bs-white) !important;
+}
+
+/* Pigments Grid - 3 columns (3-3 layout) */
+.pigments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  justify-items: center;
+}
+
+/* Reactives Grid - 3 columns with last item centered (3-2 layout) */
+.reactives-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  justify-items: center;
+}
+
+.reactives-grid .product-tab-btn:nth-child(4),
+.reactives-grid .product-tab-btn:nth-child(5) {
+  grid-column: auto;
+}
+
+.reactives-grid .product-tab-btn:nth-child(5) {
+  grid-column: 2 / 3;
+}
+
+/* Product sections applications list - smaller font */
+#pigments-reactives .row.gx-3 ul li,
+#alumina .row.gx-3 ul li,
+#carbons .row.gx-3 ul li,
+#inorganic-solutions .row.gx-3 ul li {
+  font-size: 0.9rem;
+  color: var(--bs-dark);
+  opacity: 0.85;
+}
+
+/* Center applications content in product sections */
+#pigments-reactives .row.gx-3.gy-2,
+#alumina .row.gx-3.gy-2,
+#carbons .row.gx-3.gy-2,
+#inorganic-solutions .row.gx-3.gy-2 {
+  width: 100%;
+  max-width: 100%;
+}
+
+#pigments-reactives .row.gx-3.gy-2 .col-6,
+#alumina .row.gx-3.gy-2 .col-6,
+#carbons .row.gx-3.gy-2 .col-6,
+#inorganic-solutions .row.gx-3.gy-2 .col-6 {
+  display: flex;
+  justify-content: center;
+}
+
+.services-what-we-do-images {
+  max-width: 360px;
+}
+
+.services-what-we-do-image {
+  width: 100%;
+  border-radius: 1rem;
+}
+
 .sign-in {
   max-width: 520px;
   width: 100%;
@@ -16695,6 +16857,26 @@ a:hover {
 
 .link-hover:hover {
   color: var(--bs-primary) !important;
+}
+
+footer > p.mb-0.text-white.text-md-center.w-100 {
+  width: 95vw;
+  max-width: 95vw;
+  margin-top: 7.5rem !important;
+  margin-right: auto;
+  margin-bottom: 0 rem !important;
+  margin-left: auto;
+  font-size: clamp(1.15rem, 6vw, 5.9rem);
+  line-height: 0.95;
+  font-weight: 700;
+  letter-spacing: 0;
+  white-space: nowrap;
+  padding-inline: 0.25rem;
+  box-sizing: border-box;
+}
+
+footer > p.mb-0.text-white.text-md-center.w-100 + p {
+  margin-top: 2rem !important;
 }
 
 ul {

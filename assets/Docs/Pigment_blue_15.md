@@ -97,7 +97,7 @@ Resistance scale: **1 (Poor) – 5 (Excellent)**
 | Medium | Rating |
 |------|-------|
 | Water | 5 |
-| Soda Ash (5%) | 5 |
+| Di Sodium Carbonate (5%) | 5 |
 | Linseed Oil | 5 |
 | Oleic Acid | 5 |
 | Plasticizers | 5 |
