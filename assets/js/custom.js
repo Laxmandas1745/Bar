@@ -1,5 +1,134 @@
 $(function () {
 
+    function ensureUnifiedContactLinks() {
+        const primaryPhoneDigits = '919950209377';
+        const secondaryPhoneDigits = '918209851679';
+        const secondaryPhoneHref = 'tel:+918209851679';
+        const primaryPhoneText = '+91 9950209377';
+        const secondaryPhoneText = '+91 8209851679';
+
+        $('.dropdown-menu').each(function () {
+            const $menu = $(this);
+            if ($menu.find(`a[href="${secondaryPhoneHref}"]`).length) {
+                return;
+            }
+
+            const $actionRow = $menu.find('.hstack.gap-3').last();
+            if (!$actionRow.length) {
+                return;
+            }
+
+            $actionRow.after(
+                `<a href="${secondaryPhoneHref}" class="btn btn-outline-light fs-6 bg-white px-3 py-2 text-dark w-100 hstack justify-content-center mt-3">Call Us: ${secondaryPhoneText}</a>`
+            );
+        });
+
+        $('footer').each(function () {
+            const $footer = $(this);
+            const $contactBlock = $footer.find('a[href^="mailto:"]').first().closest('.d-flex.flex-column');
+            if (!$contactBlock.length) {
+                return;
+            }
+
+            $contactBlock.find('.footer-phone-row').remove();
+            $contactBlock.find('a[href^="tel:+91"]').remove();
+
+            const phoneRow = `
+                <div class="hstack gap-3 text-white fs-5 footer-phone-row">
+                    <iconify-icon icon="lucide:phone" class="fs-7 text-primary"></iconify-icon>
+                    <span>Phone:
+                        <a href="https://wa.me/${secondaryPhoneDigits}" target="_blank" rel="noopener noreferrer" class="link-hover text-white text-decoration-none">${secondaryPhoneText}</a>,
+                        <a href="https://wa.me/${primaryPhoneDigits}" target="_blank" rel="noopener noreferrer" class="link-hover text-white text-decoration-none">${primaryPhoneText}</a>
+                    </span>
+                </div>
+            `;
+
+            const $mailAnchor = $contactBlock.find('a[href^="mailto:"]').first();
+            if ($mailAnchor.length) {
+                $mailAnchor.after(phoneRow);
+            } else {
+                $contactBlock.prepend(phoneRow);
+            }
+        });
+    }
+
+    function syncNavbarAndFooterFromIndex() {
+        const hasHeader = $('header.header').length > 0;
+        const hasFooter = $('footer.footer').length > 0;
+
+        if (!hasHeader && !hasFooter) {
+            ensureUnifiedContactLinks();
+            return;
+        }
+
+        fetch('index.html')
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Layout fetch failed');
+                }
+                return response.text();
+            })
+            .then(function (html) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const sourceHeader = doc.querySelector('header.header');
+                const sourceFooter = doc.querySelector('footer.footer');
+
+                if (sourceHeader && $('header.header').length) {
+                    $('header.header').replaceWith(sourceHeader.outerHTML);
+                }
+
+                if (sourceFooter && $('footer.footer').length) {
+                    $('footer.footer').replaceWith(sourceFooter.outerHTML);
+                }
+            })
+            .catch(function () {
+                // Keep existing layout if fetch fails
+            })
+            .finally(function () {
+                ensureUnifiedContactLinks();
+            });
+    }
+
+    syncNavbarAndFooterFromIndex();
+
+    // About Us marquee: keep progress across page navigation/back
+    function initPersistentAboutMarquee() {
+        const $marquee = $('.about-products-marquee .marquee-content').first();
+        if (!$marquee.length || typeof window.sessionStorage === 'undefined') {
+            return;
+        }
+
+        const marqueeEl = $marquee.get(0);
+        const marqueeStyle = window.getComputedStyle(marqueeEl);
+        const durationRaw = marqueeStyle.animationDuration || '0s';
+
+        let durationMs = 0;
+        if (durationRaw.endsWith('ms')) {
+            durationMs = parseFloat(durationRaw);
+        } else if (durationRaw.endsWith('s')) {
+            durationMs = parseFloat(durationRaw) * 1000;
+        }
+
+        if (!durationMs || Number.isNaN(durationMs)) {
+            return;
+        }
+
+        const storageKey = 'aboutProductsMarqueeAnchorMs';
+        const now = Date.now();
+        let anchorMs = parseInt(sessionStorage.getItem(storageKey), 10);
+
+        if (!anchorMs || Number.isNaN(anchorMs)) {
+            anchorMs = now;
+            sessionStorage.setItem(storageKey, String(anchorMs));
+        }
+
+        const elapsedMs = (now - anchorMs) % durationMs;
+        marqueeEl.style.animationDelay = `${-(elapsedMs / 1000)}s`;
+    }
+
+    initPersistentAboutMarquee();
+
     // Header Scroll
     $(window).scroll(function () {
         if ($(window).scrollTop() >= 60) {
@@ -11,7 +140,9 @@ $(function () {
 
 
     // Featured Owl Carousel
-    $('.featured-projects-slider .owl-carousel').owlCarousel({
+    const $featuredCarousel = $('.featured-projects-slider .owl-carousel');
+
+    $featuredCarousel.owlCarousel({
         center: true,
         loop: true,
         margin: 30,
@@ -38,7 +169,156 @@ $(function () {
                 items: 4
             }
         }
-    })
+    });
+
+    // Pause autoplay while hovering a product card
+    $('.featured-projects-slider').on('mouseenter', '.owl-item .portfolio', function () {
+        $featuredCarousel.trigger('stop.owl.autoplay');
+    });
+
+    $('.featured-projects-slider').on('mouseleave', '.owl-item .portfolio', function () {
+        $featuredCarousel.trigger('play.owl.autoplay', [5000]);
+    });
+
+    // Product variant tabs inside Pigments / Reactives cards
+    function activateVariant($tab) {
+        const nextImage = $tab.attr('data-image');
+        const nextLink = $tab.attr('data-link');
+        const nextAlt = $tab.attr('data-alt') || $tab.text().trim();
+        const $portfolio = $tab.closest('.portfolio');
+
+        if (!nextImage || !nextLink || !$portfolio.length) {
+            return;
+        }
+
+        $portfolio.find('.variant-main-image').attr('src', nextImage).attr('alt', nextAlt);
+        $portfolio.find('.variant-main-link').attr('href', nextLink);
+        $portfolio.find('.product-variant-tab').removeClass('is-active');
+        $tab.addClass('is-active');
+    }
+
+    const variantState = {
+        pigments: {
+            index: 0,
+            paused: false,
+            timerId: null
+        },
+        reactives: {
+            index: 1,
+            paused: false,
+            timerId: null
+        }
+    };
+
+    function rotateVariantGroup(groupName) {
+        const $groupCards = $(`.featured-projects-slider .portfolio[data-variant-group="${groupName}"]`);
+        if (!$groupCards.length) {
+            return;
+        }
+
+        const $tabsInFirstCard = $groupCards.first().find('.product-variant-tab');
+        if (!$tabsInFirstCard.length) {
+            return;
+        }
+
+        const total = $tabsInFirstCard.length;
+        variantState[groupName].index = (variantState[groupName].index + 1) % total;
+
+        $groupCards.each(function () {
+            const $tab = $(this).find('.product-variant-tab').eq(variantState[groupName].index);
+            if ($tab.length) {
+                activateVariant($tab);
+            }
+        });
+    }
+
+    function startVariantAutoRotate(groupName) {
+        if (!variantState[groupName] || variantState[groupName].timerId) {
+            return;
+        }
+
+        variantState[groupName].timerId = setInterval(function () {
+            if (!variantState[groupName].paused) {
+                rotateVariantGroup(groupName);
+            }
+        }, 2500);
+    }
+
+    function stopVariantAutoRotate(groupName) {
+        if (!variantState[groupName] || !variantState[groupName].timerId) {
+            return;
+        }
+
+        clearInterval(variantState[groupName].timerId);
+        variantState[groupName].timerId = null;
+    }
+
+    startVariantAutoRotate('pigments');
+    startVariantAutoRotate('reactives');
+
+    $('.featured-projects-slider').on('mouseenter', '.portfolio[data-variant-group]', function () {
+        const groupName = $(this).attr('data-variant-group');
+        if (variantState[groupName]) {
+            variantState[groupName].paused = true;
+        }
+    });
+
+    $('.featured-projects-slider').on('mouseleave', '.portfolio[data-variant-group]', function () {
+        const groupName = $(this).attr('data-variant-group');
+        if (variantState[groupName]) {
+            variantState[groupName].paused = false;
+        }
+    });
+
+    $('.featured-projects-slider').on('mouseenter focus', '.product-variant-tab', function () {
+        const $tab = $(this);
+        const groupName = $tab.closest('.portfolio').attr('data-variant-group');
+        const tabIndex = $tab.closest('.portfolio').find('.product-variant-tab').index($tab);
+
+        activateVariant($tab);
+
+        if (variantState[groupName] && tabIndex >= 0) {
+            variantState[groupName].index = tabIndex;
+        }
+    });
+
+    $(window).on('beforeunload', function () {
+        stopVariantAutoRotate('pigments');
+        stopVariantAutoRotate('reactives');
+    });
+
+
+    // Why Choose Us image swap on industry hover/focus
+    const $whyChooseImage = $('#whyChoosePreviewImage');
+    if ($whyChooseImage.length) {
+        $('.why-choose-industries').on('mouseenter focus', '.why-choose-item', function () {
+            const $item = $(this);
+            const nextImage = $item.attr('data-why-image');
+            const nextAlt = $item.attr('data-why-alt') || $item.text().trim();
+
+            if (!nextImage) {
+                return;
+            }
+
+            $('.why-choose-item').removeClass('is-active');
+            $item.addClass('is-active');
+
+            $whyChooseImage.css('opacity', 0.2);
+            setTimeout(function () {
+                $whyChooseImage.attr('src', nextImage).attr('alt', nextAlt).css('opacity', 1);
+            }, 120);
+        });
+    }
+
+
+    // FAQ capsule smooth morph during open/close
+    $('.faq').on('show.bs.collapse', '.faq-capsule-answer', function () {
+        $(this).closest('.faq-capsule').addClass('is-expanded');
+    });
+
+    $('.faq').on('hide.bs.collapse', '.faq-capsule-answer', function () {
+        $(this).closest('.faq-capsule').removeClass('is-expanded');
+    });
 
 
     // Count on view

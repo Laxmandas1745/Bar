@@ -71,6 +71,81 @@
     }
 }
 
+.why-choose-preview-image {
+    transition: opacity 0.25s ease-in-out;
+}
+
+.why-choose-industries {
+    .why-choose-item {
+        cursor: pointer;
+        border-radius: 999px;
+        padding: 8px 10px;
+        transition: all 0.2s ease;
+
+        &:hover,
+        &:focus,
+        &.is-active {
+            background-color: rgba($white, 0.12);
+            color: var(--bs-white) !important;
+            outline: none;
+        }
+    }
+}
+
+.faq-capsule {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 20px;
+    padding: 16px 18px;
+    min-height: 74px;
+    background-color: var(--bs-white);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+
+    &:focus-within,
+    &:hover {
+        border-color: var(--bs-primary);
+        box-shadow: 0 10px 24px rgba($black, 0.08);
+    }
+
+    &.is-expanded {
+        border-radius: 20px;
+        padding: 16px 18px;
+    }
+}
+
+.faq-capsule-btn {
+    border: 0;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bs-dark);
+    line-height: 1.4;
+    padding: 0;
+}
+
+.faq-capsule-answer {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--bs-dark);
+}
+
+.product-variant-tab {
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+        border-color: var(--bs-primary) !important;
+    }
+
+    &.is-active {
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary) !important;
+        color: var(--bs-dark) !important;
+    }
+}
+
 
 .meet-team-img {
     position: relative;
@@ -190,7 +265,7 @@
     &::before {
         content: '';
         display: block;
-        padding-top: 138%;
+        padding-top: 55%;
     }
 
     >img {
