@@ -1,15 +1,15 @@
 .header {
-    padding: 28px 0;
+    padding: 2.59vh 0; // 28px -> 2.59vh
     z-index: 99;
     transition: all 0.5s ease-in-out;
     animation: 0.5s ease-in-out 0s normal none 1 running fadeInDown;
 
     @include media-breakpoint-down(lg) {
-        padding: 20px 0;
+        padding: 1.85vh 0; // 20px -> 1.85vh
     }
 
     &.fixed-header {
-        padding: 20px 0;
+        padding: 1.85vh 0; // 20px -> 1.85vh
         background-color: var(--bs-primary);
 
         .logo {
@@ -58,8 +58,8 @@
                 &.active {
                     .animate-spin {
                         opacity: 1;
-                        width: 20px;
-                        margin-inline-end: 5px;
+                        width: 1.04vw; // 20px -> 1.04vw
+                        margin-inline-end: 0.26vw; // 5px -> 0.26vw
                     }
                 }
             }

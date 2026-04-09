@@ -12,13 +12,13 @@
 }
 
 .banner-inner-section {
-    min-height: 650px;
+    min-height: 60.19vh; // 650px -> 60.19vh (650/1080*100)
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 
     @include media-breakpoint-down(lg) {
-        min-height: 550px;
+        min-height: 50.93vh; // 550px -> 50.93vh
     }
 }
 
@@ -78,8 +78,8 @@
 .why-choose-industries {
     .why-choose-item {
         cursor: pointer;
-        border-radius: 999px;
-        padding: 8px 10px;
+        border-radius: 52vw; // 999px -> 52vw (999/1920*100)
+        padding: 0.74vh 0.52vw; // 8px -> 0.74vh, 10px -> 0.52vw
         transition: all 0.2s ease;
 
         &:hover,
@@ -94,9 +94,9 @@
 
 .faq-capsule {
     border: 1px solid var(--bs-border-color);
-    border-radius: 20px;
-    padding: 16px 18px;
-    min-height: 74px;
+    border-radius: 1.85vw; // 20px -> 1.04vw
+    padding: 1.48vh 0.94vw; // 16px -> 1.48vh, 18px -> 0.94vw
+    min-height: 6.85vh; // 74px -> 6.85vh
     background-color: var(--bs-white);
     transition: box-shadow 0.2s ease, border-color 0.2s ease;
 
@@ -117,7 +117,7 @@
     background: transparent;
     width: 100%;
     text-align: left;
-    font-size: 18px;
+    font-size: 1.67vh; // 18px -> 1.67vh
     font-weight: 700;
     color: var(--bs-dark);
     line-height: 1.4;
@@ -125,8 +125,8 @@
 }
 
 .faq-capsule-answer {
-    margin-top: 10px;
-    font-size: 15px;
+    margin-top: 0.93vh; // 10px -> 0.93vh
+    font-size: 1.39vh; // 15px -> 1.39vh
     color: var(--bs-dark);
 }
 
@@ -204,7 +204,7 @@
 }
 
 .marquee-tag {
-    width: 200px;
+    width: 10.42vw; // 200px -> 10.42vw
     transition: all 0.2s ease;
 }
 
@@ -226,8 +226,8 @@
 
 .accordion-button {
     &::after {
-        width: 44px;
-        height: 44px;
+        width: 2.29vw; // 44px -> 2.29vw
+        height: 4.07vh; // 44px -> 4.07vh
         display: flex;
         align-items: center;
         justify-content: center;
@@ -292,8 +292,8 @@
 
 .get-template {
     position: fixed;
-    right: 30px;
-    bottom: 30px;
+    right: 1.56vw; // 30px -> 1.56vw
+    bottom: 2.78vh; // 30px -> 2.78vh
     z-index: 99;
 }
 
@@ -319,6 +319,6 @@
 }
 
 .sign-in{
-    max-width: 520px;
+    max-width: 27.08vw; // 520px -> 27.08vw
     width: 100%;
 }

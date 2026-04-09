@@ -1,3 +1,54 @@
+        // On initial page load, if there is a hash, scroll with offset after layout settles
+        $(window).on('load', function () {
+            var hash = window.location.hash;
+            if (hash && $(hash).length) {
+                setTimeout(function () {
+                    scrollWithOffset(hash);
+                }, 400); // Wait for header/menu rendering
+            }
+        });
+    // Smooth scroll with header offset for anchor links
+    function scrollWithOffset(hash) {
+        var target = $(hash);
+        if (target.length) {
+            var headerHeight = $('header.fixed-header').outerHeight() || 0;
+            var windowHeight = $(window).height();
+            var offsetVH = windowHeight * 0.10; // 10vh
+            var scrollTo = target.offset().top - headerHeight - offsetVH;
+            scrollTo = Math.max(0, scrollTo);
+            $('html, body').animate({ scrollTop: scrollTo }, 600);
+        }
+    }
+
+    // Intercept anchor clicks for menu links
+    $(document).on('click', 'a[href^="#"]', function (e) {
+        var hash = this.hash;
+        if (hash && $(hash).length) {
+            e.preventDefault();
+
+            // If inside a dropdown menu, close it first
+            var $dropdown = $(this).closest('.dropdown-menu.show');
+            if ($dropdown.length) {
+                // Bootstrap 5: hide dropdown
+                var dropdownToggle = $dropdown.prev('.dropdown-toggle, [data-bs-toggle="dropdown"]');
+                if (dropdownToggle.length) {
+                    dropdownToggle.dropdown && dropdownToggle.dropdown('hide');
+                }
+                $dropdown.removeClass('show');
+            }
+
+            // Wait for menu to close and layout to settle
+            setTimeout(function () {
+                scrollWithOffset(hash);
+                // Update URL hash without jumping
+                if (history.pushState) {
+                    history.pushState(null, null, hash);
+                } else {
+                    location.hash = hash;
+                }
+            }, 350); // 350ms for menu animation
+        }
+    });
 $(function () {
 
     function ensureUnifiedContactLinks() {
@@ -18,9 +69,7 @@ $(function () {
                 return;
             }
 
-            $actionRow.after(
-                `<a href="${secondaryPhoneHref}" class="btn btn-outline-light fs-6 bg-white px-3 py-2 text-dark w-100 hstack justify-content-center mt-3">Call Us: ${secondaryPhoneText}</a>`
-            );
+            
         });
 
         $('footer').each(function () {
@@ -153,7 +202,7 @@ $(function () {
         ],
         dots: false,
         autoplay: true,
-        autoplayTimeout: 5000,
+        autoplayTimeout: 2000,
         autoplayHoverPause: false,
         responsive: {
             0: {
@@ -177,7 +226,7 @@ $(function () {
     });
 
     $('.featured-projects-slider').on('mouseleave', '.owl-item .portfolio', function () {
-        $featuredCarousel.trigger('play.owl.autoplay', [5000]);
+        $featuredCarousel.trigger('play.owl.autoplay', [1500]);
     });
 
     // Product variant tabs inside Pigments / Reactives cards
@@ -237,11 +286,13 @@ $(function () {
             return;
         }
 
+        // Faster rotation for variant groups (pigments/reactives)
+        const variantInterval = 1000; // ms, faster than normal carousel
         variantState[groupName].timerId = setInterval(function () {
             if (!variantState[groupName].paused) {
                 rotateVariantGroup(groupName);
             }
-        }, 2500);
+        }, variantInterval);
     }
 
     function stopVariantAutoRotate(groupName) {
@@ -288,10 +339,54 @@ $(function () {
     });
 
 
-    // Why Choose Us image swap on industry hover/focus
+    // Why Choose Us image swap on industry hover (preloaded to avoid network delay)
     const $whyChooseImage = $('#whyChoosePreviewImage');
+    const whyImageCache = {};
+
+    function preloadWhyChooseImage(src) {
+        if (!src || whyImageCache[src]) {
+            return;
+        }
+        const img = new Image();
+        img.src = src;
+        whyImageCache[src] = img;
+    }
+
+    function swapWhyChooseImage(nextImage, nextAlt) {
+        if (!nextImage || !$whyChooseImage.length) {
+            return;
+        }
+
+        const currentSrc = $whyChooseImage.attr('src') || '';
+        if (currentSrc.endsWith(nextImage) || currentSrc === nextImage) {
+            return;
+        }
+
+        const preloaded = whyImageCache[nextImage];
+        if (preloaded && preloaded.complete) {
+            $whyChooseImage.stop(true, true).animate({ opacity: 0.2 }, 80, function () {
+                $whyChooseImage.attr('src', nextImage).attr('alt', nextAlt).animate({ opacity: 1 }, 120);
+            });
+            return;
+        }
+
+        const img = preloaded || new Image();
+        img.onload = function () {
+            $whyChooseImage.stop(true, true).animate({ opacity: 0.2 }, 80, function () {
+                $whyChooseImage.attr('src', nextImage).attr('alt', nextAlt).animate({ opacity: 1 }, 120);
+            });
+        };
+        img.src = nextImage;
+        whyImageCache[nextImage] = img;
+    }
+
     if ($whyChooseImage.length) {
-        $('.why-choose-industries').on('mouseenter focus', '.why-choose-item', function () {
+        // Warm cache for smoother hover on deployed environments
+        $('.why-choose-item').each(function () {
+            preloadWhyChooseImage($(this).attr('data-why-image'));
+        });
+
+        $('.why-choose-industries').on('mouseenter', '.why-choose-item', function () {
             const $item = $(this);
             const nextImage = $item.attr('data-why-image');
             const nextAlt = $item.attr('data-why-alt') || $item.text().trim();
@@ -302,11 +397,7 @@ $(function () {
 
             $('.why-choose-item').removeClass('is-active');
             $item.addClass('is-active');
-
-            $whyChooseImage.css('opacity', 0.2);
-            setTimeout(function () {
-                $whyChooseImage.attr('src', nextImage).attr('alt', nextAlt).css('opacity', 1);
-            }, 120);
+            swapWhyChooseImage(nextImage, nextAlt);
         });
     }
 
