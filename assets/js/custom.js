@@ -84,7 +84,7 @@ $(function () {
 
             const phoneRow = `
                 <div class="hstack gap-3 text-white fs-5 footer-phone-row">
-                    <iconify-icon icon="lucide:phone" class="fs-7 text-primary"></iconify-icon>
+                    <iconify-icon icon="lucide:phone" class="fs-7" style="color: #707070;"></iconify-icon>
                     <span>Phone:
                         <a href="https://wa.me/${secondaryPhoneDigits}" target="_blank" rel="noopener noreferrer" class="link-hover text-white text-decoration-none">${secondaryPhoneText}</a>,
                         <a href="https://wa.me/${primaryPhoneDigits}" target="_blank" rel="noopener noreferrer" class="link-hover text-white text-decoration-none">${primaryPhoneText}</a>
