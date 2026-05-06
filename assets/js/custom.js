@@ -178,6 +178,36 @@ $(function () {
 
     initPersistentAboutMarquee();
 
+    // What we do: keep right tab rows aligned to left image heights
+    function syncWhatWeDoHeights() {
+        const navItems = document.querySelectorAll('.services-tab .nav-tabs .nav-item');
+        const images = document.querySelectorAll('.services-what-we-do-image');
+
+        if (!navItems.length || !images.length) {
+            return;
+        }
+
+        const itemCount = Math.min(navItems.length, images.length);
+
+        if (window.innerWidth >= 1200) {
+            for (let i = 0; i < itemCount; i += 1) {
+                const imageHeight = images[i].offsetHeight;
+                if (imageHeight > 0) {
+                    navItems[i].style.minHeight = `${Math.round(imageHeight)}px`;
+                }
+            }
+        } else {
+            navItems.forEach((item) => {
+                item.style.minHeight = '';
+            });
+        }
+    }
+
+    syncWhatWeDoHeights();
+    setTimeout(syncWhatWeDoHeights, 100);
+    window.addEventListener('load', syncWhatWeDoHeights);
+    window.addEventListener('resize', syncWhatWeDoHeights);
+
     // Header Scroll
     $(window).scroll(function () {
         if ($(window).scrollTop() >= 60) {
@@ -411,6 +441,19 @@ $(function () {
         $(this).closest('.faq-capsule').removeClass('is-expanded');
     });
 
+    // FAQ: toggle even when clicking anywhere inside the capsule
+    $('.faq').on('click', '.faq-capsule', function (e) {
+        const $target = $(e.target);
+        if ($target.closest('.faq-capsule-btn').length || $target.closest('a').length) {
+            return;
+        }
+
+        const $btn = $(this).find('.faq-capsule-btn').first();
+        if ($btn.length) {
+            $btn.trigger('click');
+        }
+    });
+
 
     // Count on view
     function animateCount($el) {
@@ -480,3 +523,330 @@ $(function () {
 
 });
 
+
+
+
+const contactForm = document.querySelector(".get-in-touch form");
+
+if (contactForm) {
+    contactForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const nameEl = document.getElementById("name");
+        const emailEl = document.getElementById("email");
+        const phoneEl = document.getElementById("phone");
+        const companyEl = document.getElementById("company");
+        const designationEl = document.getElementById("Designation");
+        const requestTypeEl = document.getElementById("RequestproductInput");
+        const businessEl = document.getElementById("business");
+        const countryEl = document.getElementById("country");
+        const stateEl = document.getElementById("state");
+        const cityEl = document.getElementById("city");
+        const pincodeEl = document.getElementById("pincode");
+        const messageEl = document.getElementById("message");
+        const productInputEl = document.getElementById("productInput");
+        const formErrorEl = document.getElementById("formError");
+
+        function showFormError(message) {
+            if (!formErrorEl) {
+                return;
+            }
+            formErrorEl.textContent = message;
+            formErrorEl.classList.remove("d-none");
+        }
+
+        function clearFormError() {
+            if (!formErrorEl) {
+                return;
+            }
+            formErrorEl.textContent = "";
+            formErrorEl.classList.add("d-none");
+        }
+
+        clearFormError();
+
+        if (!nameEl || !emailEl || !phoneEl || !companyEl || !designationEl || !requestTypeEl || !businessEl || !countryEl || !stateEl || !cityEl || !pincodeEl || !messageEl || !productInputEl) {
+            showFormError("Form setup is incomplete. Please refresh the page.");
+            return;
+        }
+
+        const name = nameEl.value.trim();
+        const email = emailEl.value.trim();
+        const phone = phoneEl.value.trim();
+        const company = companyEl.value.trim();
+        const designation = designationEl.value.trim();
+        const requestType = requestTypeEl.value.trim();
+        const business = businessEl.value.trim();
+        const country = countryEl.value;
+        const state = stateEl.value;
+        const city = cityEl.value;
+        const pincode = pincodeEl.value.trim();
+        const message = messageEl.value.trim();
+        const productInput = productInputEl.value.trim();
+
+  // Email regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Phone regex (10 digits India)
+  const phoneRegex = /^[0-9]{10}$/;
+
+  if (!name || name.length < 3) {
+        showFormError("Please enter a valid name");
+    return;
+  }
+
+  if (!emailRegex.test(email)) {
+        showFormError("Please enter a valid email");
+    return;
+  }
+
+  if (!phoneRegex.test(phone)) {
+        showFormError("Enter a valid 10-digit phone number");
+    return;
+  }
+
+  if (!company) {
+        showFormError("Company name is required");
+    return;
+  }
+
+    if (!designation) {
+        showFormError("Designation is required");
+        return;
+    }
+
+    if (!requestType) {
+        showFormError("Please select type of request");
+        return;
+    }
+
+    if (!business) {
+        showFormError("Please select your business type");
+    return;
+  }
+
+  if (!productInput) {
+        showFormError("Please select at least one product");
+    return;
+  }
+
+    if (!country || !state || !city) {
+        showFormError("Please select complete location");
+    return;
+  }
+
+  if (!pincode || pincode.length < 5) {
+        showFormError("Enter valid pincode");
+    return;
+  }
+
+    clearFormError();
+
+        this.submit(); // remove this if using AJAX later
+    });
+}
+
+
+const countryEl = document.getElementById("country");
+const stateEl = document.getElementById("state");
+const cityEl = document.getElementById("city");
+
+// Load countries
+fetch("https://countriesnow.space/api/v0.1/countries/positions")
+  .then(res => res.json())
+  .then(data => {
+    data.data.forEach(c => {
+      countryEl.innerHTML += `<option value="${c.name}">${c.name}</option>`;
+    });
+  });
+
+// On country change → load states
+countryEl.addEventListener("change", function () {
+    stateEl.innerHTML = "<option value=\"\">State*</option>";
+    cityEl.innerHTML = "<option value=\"\">City*</option>";
+
+  fetch("https://countriesnow.space/api/v0.1/countries/states", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ country: this.value })
+  })
+    .then(res => res.json())
+    .then(data => {
+      data.data.states.forEach(s => {
+        stateEl.innerHTML += `<option value="${s.name}">${s.name}</option>`;
+      });
+    });
+});
+
+// On state change → load cities
+stateEl.addEventListener("change", function () {
+    cityEl.innerHTML = "<option value=\"\">City*</option>";
+
+  fetch("https://countriesnow.space/api/v0.1/countries/state/cities", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      country: countryEl.value,
+      state: this.value
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      data.data.forEach(c => {
+        cityEl.innerHTML += `<option value="${c}">${c}</option>`;
+      });
+    });
+});
+
+
+
+const input = document.getElementById("productInput");
+const dropdown = document.getElementById("productDropdown");
+const checkboxes = dropdown.querySelectorAll("input");
+
+input.addEventListener("click", () => {
+  dropdown.classList.toggle("d-none");
+});
+
+checkboxes.forEach(cb => {
+  cb.addEventListener("change", () => {
+    const selected = Array.from(checkboxes)
+      .filter(i => i.checked)
+      .map(i => i.value);
+
+    input.value = selected.join("; ");
+  });
+});
+
+// Close on outside click
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".position-relative")) {
+    dropdown.classList.add("d-none");
+  }
+});
+
+const Requestinput = document.getElementById("RequestproductInput");
+const Requestdropdown = document.getElementById("RequestproductDropdown");
+const skcheckboxes = Requestdropdown.querySelectorAll("input");
+
+
+Requestinput.addEventListener("click", () => {
+  Requestdropdown.classList.toggle("d-none");
+});
+
+skcheckboxes.forEach(cb => {
+  cb.addEventListener("change", () => {
+    const selected = Array.from(skcheckboxes)
+      .filter(i => i.checked)
+      .map(i => i.value);
+
+    Requestinput.value = selected.join("; ");
+  });
+});
+
+// Close on outside click
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".position-relative")) {
+    Requestdropdown.classList.add("d-none");
+  }
+});
+
+
+const businessinput = document.getElementById("business");
+const businessDropdown = document.getElementById("businessDropdown");
+const skdcheckboxes = businessDropdown.querySelectorAll("input");
+
+
+businessinput.addEventListener("click", () => {
+  businessDropdown.classList.toggle("d-none");
+});
+
+skdcheckboxes.forEach(cb => {
+  cb.addEventListener("change", () => {
+    const selected = Array.from(skdcheckboxes)
+      .filter(i => i.checked)
+      .map(i => i.value);
+
+    businessinput.value = selected.join("; ");
+  });
+});
+
+// Close on outside click
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".position-relative")) {
+    businessDropdown.classList.add("d-none");
+  }
+});
+
+const fileInput = document.getElementById("attachment");
+const fileBtn = document.getElementById("fileBtn");
+const fileText = document.getElementById("fileText");
+const fileError = document.getElementById("fileError");
+
+const MAX_SIZE_MB = 30;
+const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+
+fileBtn.addEventListener("click", () => {
+  fileInput.click();
+});
+
+fileInput.addEventListener("change", () => {
+  const files = fileInput.files;
+
+  // Reset error
+  fileError.classList.add("d-none");
+  fileError.textContent = "";
+
+  const totalSize = Array.from(files).reduce((sum, file) => sum + file.size, 0);
+
+  if (totalSize > MAX_SIZE_BYTES) {
+    fileInput.value = "";
+    fileText.textContent = "No file chosen (max 30 MB)";
+
+    fileError.textContent = "Total file size must not exceed 30 MB.";
+    fileError.classList.remove("d-none");
+
+    return;
+  }
+
+  if (files.length > 0) {
+    const names = Array.from(files).map(f => f.name);
+    fileText.textContent = names.join(", ");
+  } else {
+    fileText.textContent = "No file chosen (max 30 MB)";
+  }
+});
+
+// Image Lazy Loading - Load images only when they come into viewport
+$(function() {
+  // Check if browser supports IntersectionObserver
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          // Load the image
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+          }
+          // Stop observing this image
+          observer.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '50px' // Start loading 50px before image enters viewport
+    });
+
+    // Observe all images with data-src attribute
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      imageObserver.observe(img);
+    });
+  } else {
+    // Fallback for older browsers - load all images immediately
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    });
+  }
+});

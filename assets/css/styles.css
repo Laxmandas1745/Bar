@@ -2474,7 +2474,7 @@ progress {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: rgba(31, 42, 46, 0.6);
+  color: #5A6265;
   appearance: none;
   background-color: transparent;
   background-clip: padding-box;
@@ -5170,7 +5170,7 @@ textarea.form-control-lg {
 }
 
 .alert {
-  --bs-alert-bg: transparent;
+  --bs-alert-bg: #E5E7E7;
   --bs-alert-padding-x: 1rem;
   --bs-alert-padding-y: 1rem;
   --bs-alert-margin-bottom: 1rem;
@@ -5189,7 +5189,7 @@ textarea.form-control-lg {
 }
 
 .alert-heading {
-  color: inherit;
+  color: #F70D0D;
 }
 
 .alert-link {
@@ -16653,6 +16653,7 @@ textarea.form-control-lg {
   border-radius: 20px;
   padding: 16px 18px;
   min-height: 74px;
+  cursor: pointer;
   background-color: var(--bs-white);
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
@@ -16759,7 +16760,7 @@ textarea.form-control-lg {
 }
 
 .about-products-marquee-link:hover {
-  color: var(--bs-primary);
+  color: #ff9d68;
 }
 
 .about-products-marquee-separator {
@@ -16851,8 +16852,9 @@ textarea.form-control-lg {
 
 .services-tab .nav-tabs .nav-item .nav-link {
   color: var(--bs-white);
-  margin-top: 9px;
-  margin-bottom: 7px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.25;
 }
 .services-tab .nav-tabs .nav-item .nav-link.active {
   background-color: transparent;
@@ -16862,7 +16864,7 @@ textarea.form-control-lg {
 .global-expo {
   position: relative;
   overflow: hidden;
-  max-width: 300px;
+  max-width: none;
 }
 
 .featured-projects-slider .owl-nav {
@@ -16871,6 +16873,7 @@ textarea.form-control-lg {
   justify-content: center;
   gap: 12px;
   margin-top: 28px;
+  
 }
 
 .featured-projects-slider .owl-nav button {
@@ -16879,6 +16882,7 @@ textarea.form-control-lg {
 
 .featured-projects-slider .owl-nav button:hover {
   background: transparent !important;
+  
 }
 
 .featured-projects-slider .owl-nav button span {
@@ -16890,12 +16894,55 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  border-color: #495057; 
 }
+
+.disclaimer {
+  font-size: 12px;
+  color: #9e9e9e;        /* grayish text */
+  text-align: right;     /* aligned to right like your image */
+  margin: 10px 20px;     /* spacing from edges */
+  font-weight: 400;      /* light text */
+}
+
+/* Reduce column spacing */
+.custom-tight-row {
+  --bs-gutter-x: 0.8rem;
+  --bs-gutter-y: 0.5rem;
+}
+
+/* Reduce list spacing */
+.custom-tight-row ul li {
+  margin-bottom: 3px;
+}
+
+/* Reduce heading spacing */
+.custom-tight-row h5 {
+  margin-bottom: 8px;
+} 
+
+.reduce-column-gap {
+  --bs-gutter-x: 0.2rem; /* default is ~1.5rem */
+}
+
+.table td, .table th {
+  white-space: normal !important;
+  word-break: break-word;
+  font-size: 14px;
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+
 
 /* Hover → make circle orange */
 .featured-projects-slider .owl-nav button:hover span {
   background: #ff9d68;
   color: #fff;
+  border-color: #ff9d68; 
 }
 
 .featured-projects-slider .featured-nav-btn {
@@ -17038,12 +17085,17 @@ textarea.form-control-lg {
 }
 
 .services-what-we-do-images {
-  max-width: 360px;
+  width: 100%;
+  max-width: 100%;
+  gap: 0 !important;
 }
 
 .services-what-we-do-image {
   width: 100%;
+  height: auto;
+  object-fit: contain;
   border-radius: 1rem;
+  display: block;
 }
 
 .sign-in {
@@ -17284,3 +17336,58 @@ header.header {
 .project .cat-single a {
   transition: color 0.2s ease;
 }/*# sourceMappingURL=styles.css.map */
+
+
+
+
+.file-upload-wrapper {
+  position: relative;
+}
+
+.file-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  display: none;
+}
+
+.file-display {
+  padding: 8px 0;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+#fileError {
+  font-size: 13px;
+  color: #F70D0D;
+}
+
+
+
+
+
+
+
+
+
+
+
+.custom-dropdown {
+  position: absolute;
+  width: 100%;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  z-index: 10;
+}
+
+.custom-dropdown label {
+  display: block;
+  font-size: 14px;
+  padding: 4px 0;
+  cursor: pointer;
+}
