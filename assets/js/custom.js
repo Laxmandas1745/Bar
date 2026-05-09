@@ -178,6 +178,36 @@ $(function () {
 
     initPersistentAboutMarquee();
 
+    // What we do: keep right tab rows aligned to left image heights
+    function syncWhatWeDoHeights() {
+        const navItems = document.querySelectorAll('.services-tab .nav-tabs .nav-item');
+        const images = document.querySelectorAll('.services-what-we-do-image');
+
+        if (!navItems.length || !images.length) {
+            return;
+        }
+
+        const itemCount = Math.min(navItems.length, images.length);
+
+        if (window.innerWidth >= 1200) {
+            for (let i = 0; i < itemCount; i += 1) {
+                const imageHeight = images[i].offsetHeight;
+                if (imageHeight > 0) {
+                    navItems[i].style.minHeight = `${Math.round(imageHeight)}px`;
+                }
+            }
+        } else {
+            navItems.forEach((item) => {
+                item.style.minHeight = '';
+            });
+        }
+    }
+
+    syncWhatWeDoHeights();
+    setTimeout(syncWhatWeDoHeights, 100);
+    window.addEventListener('load', syncWhatWeDoHeights);
+    window.addEventListener('resize', syncWhatWeDoHeights);
+
     // Header Scroll
     $(window).scroll(function () {
         if ($(window).scrollTop() >= 60) {
@@ -411,6 +441,19 @@ $(function () {
         $(this).closest('.faq-capsule').removeClass('is-expanded');
     });
 
+    // FAQ: toggle even when clicking anywhere inside the capsule
+    $('.faq').on('click', '.faq-capsule', function (e) {
+        const $target = $(e.target);
+        if ($target.closest('.faq-capsule-btn').length || $target.closest('a').length) {
+            return;
+        }
+
+        const $btn = $(this).find('.faq-capsule-btn').first();
+        if ($btn.length) {
+            $btn.trigger('click');
+        }
+    });
+
 
     // Count on view
     function animateCount($el) {
@@ -480,3 +523,464 @@ $(function () {
 
 });
 
+
+
+
+const contactForm = document.querySelector(".get-in-touch form");
+
+if (contactForm) {
+    contactForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const nameEl = document.getElementById("name");
+        const emailEl = document.getElementById("email");
+        const phoneEl = document.getElementById("phone");
+        const companyEl = document.getElementById("company");
+        const designationEl = document.getElementById("Designation");
+        const requestTypeEl = document.getElementById("RequestproductInput");
+        const businessEl = document.getElementById("business");
+        const countryEl = document.getElementById("country");
+        const stateEl = document.getElementById("state");
+        const cityEl = document.getElementById("city");
+        const pincodeEl = document.getElementById("pincode");
+        const messageEl = document.getElementById("message");
+        const productInputEl = document.getElementById("productInput");
+
+        // Per-field inline error helpers
+        function showFieldError(errorId, message) {
+            const el = document.getElementById(errorId);
+            if (!el) return;
+            el.textContent = message;
+            el.classList.remove("d-none");
+        }
+
+        function clearFieldError(errorId) {
+            const el = document.getElementById(errorId);
+            if (!el) return;
+            el.textContent = "";
+            el.classList.add("d-none");
+        }
+
+        // Clear all field errors first
+        ["nameError","emailError","phoneError","companyError","designationError",
+         "requestError","businessError","productError","locationError","pincodeError"].forEach(clearFieldError);
+
+        if (!nameEl || !emailEl || !phoneEl || !companyEl || !designationEl || !requestTypeEl || !businessEl || !countryEl || !stateEl || !cityEl || !pincodeEl || !messageEl || !productInputEl) {
+            return;
+        }
+
+        const name = nameEl.value.trim();
+        const email = emailEl.value.trim();
+        const phone = phoneEl.value.trim();
+        const company = companyEl.value.trim();
+        const designation = designationEl.value.trim();
+        const requestType = requestTypeEl.value.trim();
+        const business = businessEl.value.trim();
+        const country = countryEl.value;
+        const state = stateEl.value;
+        const city = cityEl.value;
+        const pincode = pincodeEl.value.trim();
+        const productInput = productInputEl.value.trim();
+
+        // Email regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Phone regex – digits, spaces, +, -, parentheses only (any length)
+        const phoneRegex = /^[\d\s\+\-\(\)]+$/;
+
+        let hasError = false;
+
+        if (!name || name.length < 2) {
+            showFieldError("nameError", "Please enter a valid name.");
+            hasError = true;
+        } else if (/\d/.test(name)) {
+            showFieldError("nameError", "Name should not contain numbers.");
+            hasError = true;
+        }
+
+        if (!emailRegex.test(email)) {
+            showFieldError("emailError", "Please enter a valid email address.");
+            hasError = true;
+        }
+
+        if (!phone || !phoneRegex.test(phone)) {
+            showFieldError("phoneError", "Please enter a valid phone number (no letters allowed).");
+            hasError = true;
+        }
+
+        if (!company) {
+            showFieldError("companyError", "Company name is required.");
+            hasError = true;
+        }
+
+        if (!designation) {
+            showFieldError("designationError", "Designation is required.");
+            hasError = true;
+        } else if (/\d/.test(designation)) {
+            showFieldError("designationError", "Designation should not contain numbers.");
+            hasError = true;
+        }
+
+        if (!requestType) {
+            showFieldError("requestError", "Please select a type of request.");
+            hasError = true;
+        }
+
+        if (!business) {
+            showFieldError("businessError", "Please select your business type.");
+            hasError = true;
+        }
+
+        if (!productInput) {
+            showFieldError("productError", "Please select at least one product.");
+            hasError = true;
+        }
+
+        if (!country || !state || !city) {
+            showFieldError("locationError", "Please select your country, state, and city.");
+            hasError = true;
+        }
+
+        if (!pincode || !/^\d{4,10}$/.test(pincode)) {
+            showFieldError("pincodeError", "Please enter a valid pincode (digits only, 4–10 digits).");
+            hasError = true;
+        }
+
+        if (hasError) return;
+
+        this.submit(); // remove this if using AJAX later
+    });
+}
+
+
+const countryEl = document.getElementById("country");
+const stateEl = document.getElementById("state");
+const cityEl = document.getElementById("city");
+
+// Load countries
+fetch("https://countriesnow.space/api/v0.1/countries/positions")
+  .then(res => res.json())
+  .then(data => {
+    data.data.forEach(c => {
+      countryEl.innerHTML += `<option value="${c.name}">${c.name}</option>`;
+    });
+  });
+
+// On country change → load states
+countryEl.addEventListener("change", function () {
+    stateEl.innerHTML = "<option value=\"\">State*</option>";
+    cityEl.innerHTML = "<option value=\"\">City*</option>";
+
+  fetch("https://countriesnow.space/api/v0.1/countries/states", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ country: this.value })
+  })
+    .then(res => res.json())
+    .then(data => {
+      data.data.states.forEach(s => {
+        stateEl.innerHTML += `<option value="${s.name}">${s.name}</option>`;
+      });
+    });
+});
+
+// On state change → load cities
+stateEl.addEventListener("change", function () {
+    cityEl.innerHTML = "<option value=\"\">City*</option>";
+
+  fetch("https://countriesnow.space/api/v0.1/countries/state/cities", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      country: countryEl.value,
+      state: this.value
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      data.data.forEach(c => {
+        const normalized = c.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        cityEl.innerHTML += `<option value="${normalized}">${normalized}</option>`;
+      });
+    });
+});
+
+
+
+const input = document.getElementById("productInput");
+const dropdown = document.getElementById("productDropdown");
+const checkboxes = dropdown.querySelectorAll("input");
+
+input.addEventListener("click", () => {
+  dropdown.classList.toggle("d-none");
+});
+
+checkboxes.forEach(cb => {
+  cb.addEventListener("change", () => {
+    const selected = Array.from(checkboxes)
+      .filter(i => i.checked)
+      .map(i => i.value);
+
+    input.value = selected.join("; ");
+  });
+});
+
+// Close on outside click
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".position-relative")) {
+    dropdown.classList.add("d-none");
+  }
+});
+
+const Requestinput = document.getElementById("RequestproductInput");
+const Requestdropdown = document.getElementById("RequestproductDropdown");
+const skcheckboxes = Requestdropdown.querySelectorAll("input");
+
+
+Requestinput.addEventListener("click", () => {
+  Requestdropdown.classList.toggle("d-none");
+});
+
+skcheckboxes.forEach(cb => {
+  cb.addEventListener("change", () => {
+    const selected = Array.from(skcheckboxes)
+      .filter(i => i.checked)
+      .map(i => i.value);
+
+    Requestinput.value = selected.join("; ");
+  });
+});
+
+// Close on outside click
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".position-relative")) {
+    Requestdropdown.classList.add("d-none");
+  }
+});
+
+
+const businessinput = document.getElementById("business");
+const businessDropdown = document.getElementById("businessDropdown");
+const skdcheckboxes = businessDropdown.querySelectorAll("input");
+
+
+businessinput.addEventListener("click", () => {
+  businessDropdown.classList.toggle("d-none");
+});
+
+skdcheckboxes.forEach(cb => {
+  cb.addEventListener("change", () => {
+    const selected = Array.from(skdcheckboxes)
+      .filter(i => i.checked)
+      .map(i => i.value);
+
+    businessinput.value = selected.join("; ");
+  });
+});
+
+// Close on outside click
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".position-relative")) {
+    businessDropdown.classList.add("d-none");
+  }
+});
+
+// Real-time input filtering & validation
+(function () {
+    const nameEl = document.getElementById('name');
+    const emailEl = document.getElementById('email');
+    const designationEl = document.getElementById('Designation');
+    const phoneEl = document.getElementById('phone');
+    const companyEl = document.getElementById('company');
+    const pincodeEl = document.getElementById('pincode');
+    const countryEl = document.getElementById('country');
+    const stateEl = document.getElementById('state');
+    const cityEl = document.getElementById('city');
+    const productInputEl = document.getElementById('productInput');
+    const requestInputEl = document.getElementById('RequestproductInput');
+    const businessEl = document.getElementById('business');
+
+    function clearError(errorId) {
+        const el = document.getElementById(errorId);
+        if (el) {
+            el.textContent = "";
+            el.classList.add("d-none");
+        }
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[\d\s\+\-\(\)]+$/;
+
+    if (nameEl) {
+        nameEl.addEventListener('input', function () {
+            this.value = this.value.replace(/[0-9]/g, '');
+            if (this.value.trim().length >= 2 && !/\d/.test(this.value)) {
+                clearError('nameError');
+            }
+        });
+    }
+
+    if (emailEl) {
+        emailEl.addEventListener('input', function () {
+            if (emailRegex.test(this.value.trim())) {
+                clearError('emailError');
+            }
+        });
+    }
+
+    if (designationEl) {
+        designationEl.addEventListener('input', function () {
+            this.value = this.value.replace(/[0-9]/g, '');
+            if (this.value.trim().length > 0 && !/\d/.test(this.value)) {
+                clearError('designationError');
+            }
+        });
+    }
+
+    if (phoneEl) {
+        phoneEl.addEventListener('input', function () {
+            this.value = this.value.replace(/[a-zA-Z]/g, '');
+            if (this.value.trim().length > 0 && phoneRegex.test(this.value.trim())) {
+                clearError('phoneError');
+            }
+        });
+    }
+
+    if (companyEl) {
+        companyEl.addEventListener('input', function () {
+            if (this.value.trim().length > 0) {
+                clearError('companyError');
+            }
+        });
+    }
+
+    if (pincodeEl) {
+        pincodeEl.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '');
+            if (/^\d{4,10}$/.test(this.value)) {
+                clearError('pincodeError');
+            }
+        });
+    }
+
+    if (countryEl) {
+        countryEl.addEventListener('change', function () {
+            if (this.value && stateEl.value && cityEl.value) {
+                clearError('locationError');
+            }
+        });
+    }
+
+    if (stateEl) {
+        stateEl.addEventListener('change', function () {
+            if (countryEl.value && this.value && cityEl.value) {
+                clearError('locationError');
+            }
+        });
+    }
+
+    if (cityEl) {
+        cityEl.addEventListener('change', function () {
+            if (countryEl.value && stateEl.value && this.value) {
+                clearError('locationError');
+            }
+        });
+    }
+
+    if (productInputEl) {
+        productInputEl.addEventListener('change', function () {
+            if (this.value.trim().length > 0) {
+                clearError('productError');
+            }
+        });
+    }
+
+    if (requestInputEl) {
+        requestInputEl.addEventListener('change', function () {
+            if (this.value.trim().length > 0) {
+                clearError('requestError');
+            }
+        });
+    }
+
+    if (businessEl) {
+        businessEl.addEventListener('change', function () {
+            if (this.value.trim().length > 0) {
+                clearError('businessError');
+            }
+        });
+    }
+}());
+
+const fileInput = document.getElementById("attachment");
+const fileBtn = document.getElementById("fileBtn");
+const fileText = document.getElementById("fileText");
+const fileError = document.getElementById("fileError");
+
+const MAX_SIZE_MB = 30;
+const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+
+fileBtn.addEventListener("click", () => {
+  fileInput.click();
+});
+
+fileInput.addEventListener("change", () => {
+  const files = fileInput.files;
+
+  // Reset error
+  fileError.classList.add("d-none");
+  fileError.textContent = "";
+
+  const totalSize = Array.from(files).reduce((sum, file) => sum + file.size, 0);
+
+  if (totalSize > MAX_SIZE_BYTES) {
+    fileInput.value = "";
+    fileText.textContent = "No file chosen (max 30 MB)";
+
+    fileError.textContent = "Total file size must not exceed 30 MB.";
+    fileError.classList.remove("d-none");
+
+    return;
+  }
+
+  if (files.length > 0) {
+    const names = Array.from(files).map(f => f.name);
+    fileText.textContent = names.join(", ");
+  } else {
+    fileText.textContent = "No file chosen (max 30 MB)";
+  }
+});
+
+// Image Lazy Loading - Load images only when they come into viewport
+$(function() {
+  // Check if browser supports IntersectionObserver
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          // Load the image
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+          }
+          // Stop observing this image
+          observer.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '50px' // Start loading 50px before image enters viewport
+    });
+
+    // Observe all images with data-src attribute
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      imageObserver.observe(img);
+    });
+  } else {
+    // Fallback for older browsers - load all images immediately
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    });
+  }
+});

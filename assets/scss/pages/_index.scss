@@ -17,6 +17,18 @@
     background-size: cover;
     background-position: center;
 
+    h1[style*="margin-bottom: -4vh"],
+    h1[style*="margin-top: -3vh"],
+    h1[style*="margin-top: -2vh"] {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        line-height: 1.25 !important;
+    }
+
+    .d-flex.align-items-end.gap-3 {
+        row-gap: 0.5rem;
+    }
+
     @include media-breakpoint-down(lg) {
         min-height: 50.93vh; // 550px -> 50.93vh
     }

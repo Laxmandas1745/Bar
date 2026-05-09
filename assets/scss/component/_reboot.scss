@@ -22,6 +22,18 @@ a:hover {
     }
 }
 
+.footer-contact-link {
+    &:hover {
+        .footer-contact-label {
+            color: #fff !important;
+        }
+
+        .footer-contact-value {
+            color: var(--bs-primary) !important;
+        }
+    }
+}
+
 ul {
     list-style: none;
     padding-left: 0;
