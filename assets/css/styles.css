@@ -16476,7 +16476,12 @@ textarea.form-control-lg {
 }
 .header.fixed-header {
   padding: 20px 0;
-  background-color: var(--bs-primary);
+  background: radial-gradient(
+    circle,
+    #6f6f6f 0%,
+    #4a4a4a 45%,
+    #1a1a1a 100%
+  ) !important;
 }
 .header.fixed-header .logo .logo-dark {
   display: block;
@@ -16489,7 +16494,7 @@ textarea.form-control-lg {
   
 }
 .header.fixed-header .toggle-menu {
-  background-color: #6F6F6F !important;
+  background-color: transparent !important;
 }
 .header.fixed-header .toggle-menu .menu-icon {
   color: var(--bs-white) !important;

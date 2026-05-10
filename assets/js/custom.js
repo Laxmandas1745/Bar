@@ -636,8 +636,8 @@ if (contactForm) {
             hasError = true;
         }
 
-        if (!country || !state || !city) {
-            showFieldError("locationError", "Please select your country, state, and city.");
+        if (!country || !state) {
+            showFieldError("locationError", "Please select your country and state.");
             hasError = true;
         }
 
@@ -669,7 +669,7 @@ fetch("https://countriesnow.space/api/v0.1/countries/positions")
 // On country change → load states
 countryEl.addEventListener("change", function () {
     stateEl.innerHTML = "<option value=\"\">State*</option>";
-    cityEl.innerHTML = "<option value=\"\">City*</option>";
+    cityEl.innerHTML = "<option value=\"\">City</option>";
 
   fetch("https://countriesnow.space/api/v0.1/countries/states", {
     method: "POST",
@@ -686,7 +686,7 @@ countryEl.addEventListener("change", function () {
 
 // On state change → load cities
 stateEl.addEventListener("change", function () {
-    cityEl.innerHTML = "<option value=\"\">City*</option>";
+    cityEl.innerHTML = "<option value=\"\">City</option>";
 
   fetch("https://countriesnow.space/api/v0.1/countries/state/cities", {
     method: "POST",
