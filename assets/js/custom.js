@@ -636,8 +636,8 @@ if (contactForm) {
             hasError = true;
         }
 
-        if (!country || !state) {
-            showFieldError("locationError", "Please select your country and state.");
+        if (!country) {
+            showFieldError("locationError", "Please select your country.");
             hasError = true;
         }
 
@@ -668,7 +668,7 @@ fetch("https://countriesnow.space/api/v0.1/countries/positions")
 
 // On country change → load states
 countryEl.addEventListener("change", function () {
-    stateEl.innerHTML = "<option value=\"\">State*</option>";
+    stateEl.innerHTML = "<option value=\"\">State</option>";
     cityEl.innerHTML = "<option value=\"\">City</option>";
 
   fetch("https://countriesnow.space/api/v0.1/countries/states", {
