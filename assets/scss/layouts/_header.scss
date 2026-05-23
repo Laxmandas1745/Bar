@@ -11,6 +11,7 @@
     &.fixed-header {
         padding: 1.85vh 0; // 20px -> 1.85vh
         background-color: var(--bs-primary);
+        animation: headerSlideDown 0.35s ease-out;
 
         .logo {
             .logo-dark {
@@ -66,4 +67,14 @@
         }
     }
 
+}
+
+@keyframes headerSlideDown {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
